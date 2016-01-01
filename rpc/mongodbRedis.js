@@ -1,4 +1,7 @@
 /**
+ * Created by vancezhao on 16/1/1.
+ */
+/**
  * Created by vancezhao on 15/12/30.
  */
 var restify = require('restify');
@@ -45,9 +48,9 @@ function respond(req, res, next) {
         //console.log(JSON.stringify(result, null, 2));
         //pool.release(db);
         //});
-
     });
 
     res.send('hello ');
+    return next();
 }
 
