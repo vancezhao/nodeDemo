@@ -16,7 +16,7 @@ var Db = require('mongodb').Db,
 //BSON = require('mongodb').pure().BSON,
     assert = require('assert');
 
-server.listen(8080, function () {
+server.listen(1337, function () {
     console.log('%s listening at %s', server.name, server.url);
 });
 
