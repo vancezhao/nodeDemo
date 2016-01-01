@@ -64,10 +64,16 @@ function respond(req, res, next) {
     });
 
     MongoClient.connect('mongodb://172.16.4.90:30000,172.16.4.91:30000,172.16.4.92:30000/shardb', {
-        w: 0,
-        maxPoolSize: 100,
-        socketTimeoutMS: 500,
-        keepAlive: false
+        server: {
+            poolSize: 500
+            , autoReconnect: false
+            , socketOptions: {
+                noDelay: false
+                , keepAlive: 100
+                , connectTimeoutMS: 444444
+                , socketTimeoutMS: 555555
+            }
+        }
     }, function (err, db) {
         assert.equal(null, err);
         assert.ok(db != null);
