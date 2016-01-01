@@ -48,6 +48,7 @@ function respond(req, res, next) {
         //console.log(JSON.stringify(result, null, 2));
         //pool.release(db);
         //});
+        db.close();
     });
 
     res.send('hello ');
