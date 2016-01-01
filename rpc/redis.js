@@ -3,21 +3,47 @@
  */
 var restify = require('restify');
 var server = restify.createServer();
+var mongodb = require("mongodb");
+var poolModule = require('generic-pool');
 
-var Db = require('mongodb').Db,
-    MongoClient = require('mongodb').MongoClient,
-    Server = require('mongodb').Server,
-    ReplSetServers = require('mongodb').ReplSetServers,
-    ObjectID = require('mongodb').ObjectID,
-    Binary = require('mongodb').Binary,
-    GridStore = require('mongodb').GridStore,
-    Grid = require('mongodb').Grid,
-    Code = require('mongodb').Code,
-//BSON = require('mongodb').pure().BSON,
-    assert = require('assert');
+var MongoClient = require('mongodb').MongoClient
+    , assert = require('assert');
+var db;
+// Connection URL
+var url = 'mongodb://172.16.4.90:30000/shardb';
 
-server.listen(1337, function () {
-    console.log('%s listening at %s', server.name, server.url);
+
+var pool = poolModule.Pool({
+    name: 'mongodb',
+    create: function (callback) {
+        var server_options = {'auto_reconnect': false, poolSize: 100};
+        var db_options = {w: -1};
+        var mongoserver = new mongodb.Server('172.16.4.90', 30000, server_options);
+        var db = new mongodb.Db('shardb', mongoserver, db_options);
+        db.open(function (err, db) {
+            if (err)return callback(err);
+            callback(null, db);
+        });
+    },
+    destroy: function (db) {
+        db.close();
+    },
+    max: 1000,
+    idleTimeoutMillis: 30000,
+    log: false
+});
+
+
+MongoClient.connect("mongodb://172.16.4.90:30000,172.16.4.91:30000,172.16.4.92:30000/shardb?w=0", {
+    'auto_reconnect': false,
+    poolSize: 100
+}, function (err, database) {
+    if (err) throw err;
+    db = database;
+
+    server.listen(1337, function () {
+        console.log('%s listening at %s', server.name, server.url);
+    });
 });
 
 var redis_port = 6379;
@@ -28,77 +54,19 @@ var pipeline = redis.pipeline();
 var future = pipeline.set('vance_java3', 'vance_java3').exec();
 
 
-//var kafka = require('kafka-node');
-//var Producer = kafka.Producer;
-//var KeyedMessage = kafka.KeyedMessage;
-//var Client = kafka.Client;
-//var client = new Client('172.16.4.92:9092');
-//var argv = require('optimist').argv;
-//var topic = argv.topic || 'topic1';
-//var p = argv.p || 0;
-//var a = argv.a || 0;
-//var producer = new Producer(client, {requireAcks: 1});
-//
-//producer.on('ready', function () {
-//    var message = 'a message';
-//    var keyedMessage = new KeyedMessage('keyed', 'a keyed message');
-//    console.log('start to send');
-//
-//    producer.send([
-//        {topic: topic, partition: p, messages: [message, keyedMessage], attributes: a}
-//    ], function (err, result) {
-//        console.log(err || result);
-//        process.exit();
-//    });
-//});
-//
-//producer.on('error', function (err) {
-//    console.log('error', err)
-//});
-
 server.get('/hello', respond);
 function respond(req, res, next) {
-
+    //pool.acquire(function (err, db) {
     future.then(function (result) {
         //console.log(result);
     });
-
-    MongoClient.connect('mongodb://172.16.4.90:30000,172.16.4.91:30000,172.16.4.92:30000/shardb', {
-        server: {
-            poolSize: 500
-            , autoReconnect: false
-            , socketOptions: {
-                noDelay: false
-                , keepAlive: 100
-                , connectTimeoutMS: 444444
-                , socketTimeoutMS: 555555
-            }
-        }
-    }, function (err, db) {
-        assert.equal(null, err);
-        assert.ok(db != null);
-
-        var insertDocuments = function (db, callback) {
-            // Get the documents collection
-            var collection = db.collection('documents');
-            // Insert some documents
-            collection.insertOne([
-                {vancetestonly: 1}
-            ], function (err, result) {
-                //assert.equal(err, null);
-                //assert.equal(3, result.result.n);
-                //assert.equal(3, result.ops.length);
-                callback(result);
-            });
-        }
-
-        insertDocuments(db, function () {
-            db.close();
-        });
+    db.collection('shardtable').save({vancezhao: 1}, function (err, result) {
+        //res.end(JSON.stringify(result, null, 2));
+        //console.log(JSON.stringify(result, null, 2));
+        //pool.release(db);
+        //});
 
     });
-
     res.send('hello ');
 }
-
 
