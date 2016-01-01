@@ -12,31 +12,10 @@ var db;
 // Connection URL
 var url = 'mongodb://172.16.4.90:30000/shardb';
 
-
-var pool = poolModule.Pool({
-    name: 'mongodb',
-    create: function (callback) {
-        var server_options = {'auto_reconnect': false, poolSize: 100};
-        var db_options = {w: -1};
-        var mongoserver = new mongodb.Server('172.16.4.90', 30000, server_options);
-        var db = new mongodb.Db('shardb', mongoserver, db_options);
-        db.open(function (err, db) {
-            if (err)return callback(err);
-            callback(null, db);
-        });
-    },
-    destroy: function (db) {
-        db.close();
-    },
-    max: 1000,
-    idleTimeoutMillis: 30000,
-    log: false
-});
-
-
 MongoClient.connect("mongodb://172.16.4.90:30000,172.16.4.91:30000,172.16.4.92:30000/shardb?w=0", {
     'auto_reconnect': false,
-    poolSize: 100
+    'poolSize': 10000,
+    socketOptions: {keepAlive: 3000}
 }, function (err, database) {
     if (err) throw err;
     db = database;
