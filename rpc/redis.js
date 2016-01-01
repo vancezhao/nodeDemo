@@ -63,7 +63,11 @@ function respond(req, res, next) {
         //console.log(result);
     });
 
-    MongoClient.connect('mongodb://172.16.4.90:30000,172.16.4.91:30000,172.16.4.92:30000/shardb?w=1', function (err, db) {
+    MongoClient.connect('mongodb://172.16.4.90:30000,172.16.4.91:30000,172.16.4.92:30000/shardb', {
+        w: 0,
+        maxPoolSize: 100,
+        socketTimeoutMS: 500
+    }, function (err, db) {
         assert.equal(null, err);
         assert.ok(db != null);
 
@@ -71,7 +75,7 @@ function respond(req, res, next) {
             // Get the documents collection
             var collection = db.collection('documents');
             // Insert some documents
-            collection.insertMany([
+            collection.insertOne([
                 {vancetestonly: 1}
             ], function (err, result) {
                 //assert.equal(err, null);
