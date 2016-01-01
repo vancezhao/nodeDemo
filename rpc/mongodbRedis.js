@@ -23,7 +23,7 @@ MongoClient.connect("mongodb://172.16.4.90:30000,172.16.4.91:30000,172.16.4.92:3
     if (err) throw err;
     db = database;
 
-    server.listen(1337, function () {
+    server.listen(1338, function () {
         console.log('%s listening at %s', server.name, server.url);
     });
 });
