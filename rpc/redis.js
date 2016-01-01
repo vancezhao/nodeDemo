@@ -66,7 +66,8 @@ function respond(req, res, next) {
     MongoClient.connect('mongodb://172.16.4.90:30000,172.16.4.91:30000,172.16.4.92:30000/shardb', {
         w: 0,
         maxPoolSize: 100,
-        socketTimeoutMS: 500
+        socketTimeoutMS: 500,
+        keepAlive: false
     }, function (err, db) {
         assert.equal(null, err);
         assert.ok(db != null);
