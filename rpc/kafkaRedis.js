@@ -10,15 +10,10 @@
  */
 var restify = require('restify');
 var server = restify.createServer();
-var mongodb = require("mongodb");
 var kafka = require('kafka-node'),
     HighLevelProducer = kafka.HighLevelProducer,
     client = new kafka.Client('172.16.4.92:2181,172.16.4.93:2181,172.16.4.94:2181'),
     producer = new HighLevelProducer(client);
-
-//var monitor = require('monitor');
-//monitor.start();
-
 
 producer.on('ready', function () {
 
@@ -30,7 +25,7 @@ var Redis = require('ioredis');
 //var redis = new Redis(redis_port, redis_host);
 var redis = new Redis('redis://172.16.4.94:22121');
 var pipeline = redis.pipeline();
-
+var future = pipeline.set("123", "123").exec();
 
 server.listen(1338, function () {
     //console.log('%s listening at %s', server.name, server.url);
@@ -44,11 +39,10 @@ function respond(req, res, next) {
 
     var phone = req.params.phone;
     //console.log(phone);
-    var future = pipeline.set(phone, phone).exec();
 
     //pool.acquire(function (err, db) {
     future.then(function (result) {
-        console.log(result);
+        //console.log(result);
     });
 
     //sync send msg
