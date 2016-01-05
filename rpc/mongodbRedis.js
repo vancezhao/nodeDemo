@@ -44,14 +44,15 @@ function respond(req, res, next) {
     });
 
     db.collection('shardtable').insertOne({vancezhao: 1}, function (err, result) {
-        //res.end(JSON.stringify(result, null, 2));
-        //console.log(JSON.stringify(result, null, 2));
+        console.log(JSON.stringify(result, null, 2));
+        res.end(JSON.stringify(result, null, 2));
+
         //pool.release(db);
         //});
         db.close();
     });
 
-    res.send('hello ');
-    return next();
+    //res.send('hello ');
+    //return next();
 }
 
