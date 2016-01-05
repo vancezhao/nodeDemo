@@ -41,12 +41,12 @@ function respond(req, res, next) {
     //console.log(phone);
 
     //pool.acquire(function (err, db) {
-    future.then(function (result) {
-        //console.log(result);
-    });
+    //future.then(function (result) {
+    //    //console.log(result);
+    //});
 
     //sync send msg
-    //sendMsg(phone);
+    sendMsg(phone);
 
     res.send('OK');
     //return next();
