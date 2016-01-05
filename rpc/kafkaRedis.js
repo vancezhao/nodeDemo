@@ -22,8 +22,8 @@ producer.on('ready', function () {
 var redis_port = 6379;
 var redis_host = '172.16.4.95';
 var Redis = require('ioredis');
-//var redis = new Redis(redis_port, redis_host);
-var redis = new Redis('redis://172.16.4.94:22121');
+var redis = new Redis(redis_port, redis_host);
+
 var pipeline = redis.pipeline();
 var future = pipeline.set("123", "123").exec();
 
