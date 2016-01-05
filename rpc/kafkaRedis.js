@@ -1,58 +1,70 @@
 /**
- * Created by vancezhao on 16/1/4.
- */
-
-/**
  * Created by vancezhao on 16/1/1.
  */
 /**
  * Created by vancezhao on 15/12/30.
  */
+require('monitor').start();
+
 var restify = require('restify');
 var server = restify.createServer();
+var mongodb = require("mongodb");
+var kafka = require('kafka-node'),
+    HighLevelProducer = kafka.HighLevelProducer,
+    client = new kafka.Client('172.16.4.92:2181,172.16.4.93:2181,172.16.4.94:2181'),
+    producer = new HighLevelProducer(client);
+producer.on('ready', function () {
 
-//var kafka = require('kafka-node'),
-//    HighLevelProducer = kafka.HighLevelProducer,
-//    client = new kafka.Client('172.16.4.90:2181'),
-//    producer = new HighLevelProducer(client);
-//
-//producer.on('ready', function () {
-//
-//});
-
-//var redis_port = 6379;
-//var redis_host = '172.16.4.95';
-//var Redis = require('ioredis');
-//var redis = new Redis(redis_port, redis_host);
-//
-//var pipeline = redis.pipeline();
-//var future = pipeline.set("123", "123").exec();
-
-server.listen(1338, function () {
-    //console.log('%s listening at %s', server.name, server.url);
 });
 
+
+var MongoClient = require('mongodb').MongoClient
+    , assert = require('assert');
+var db;
 // Connection URL
-server.get('/hello/:phone', function(req, res, next){
-    res.send('OK');
+var url = 'mongodb://172.16.4.20:30000/shardb';
+
+MongoClient.connect("mongodb://172.16.4.90:30000,172.16.4.91:30000,172.16.4.92:30000/shardb?w=-1", {
+    'auto_reconnect': false,
+    'poolSize': 10000,
+    socketOptions: {keepAlive: 10000}
+}, function (err, database) {
+    if (err) throw err;
+    db = database;
+
+    server.listen(1338, function () {
+        console.log('%s listening at %s', server.name, server.url);
+    });
 });
 
+
+server.get('/hello/:phone', respond);
 function respond(req, res, next) {
     //pool.acquire(function (err, db) {
 
     var phone = req.params.phone;
-    //console.log(phone);
-
-    //pool.acquire(function (err, db) {
-    //future.then(function (result) {
-    //    //console.log(result);
-    //});
-
     //sync send msg
-    //sendMsg(phone);
+    try {
+        sendMsg(phone);
+    } catch (e) {
+        console.error("send kafka error of phonenum: " + phone);
+    }
 
+    try {
+        //sync send mongodb
+        db.collection('shardtable').insertOne({id: 9999999, phonenum: phone}, function (err, result) {
+            //res.end(JSON.stringify(result, null, 2));
+            //console.log(JSON.stringify(result, null, 2));
+            //console.log(JSON.stringify(error, null, 2));
+            //pool.release(db);
+            //});
+            db.close();
+        });
+    } catch (e) {
+        console.error("send mongodb error of phonenum: " + phone);
+    }
     res.send('OK');
-    //return next();
+    return next();
 }
 
 function sendMsg(phone) {
