@@ -8,27 +8,26 @@
 var restify = require('restify');
 var server = restify.createServer();
 var mongodb = require("mongodb");
-var kafka = require('kafka-node'),
-    HighLevelProducer = kafka.HighLevelProducer,
-    client = new kafka.Client('172.16.4.92:2181,172.16.4.93:2181,172.16.4.94:2181'),
-    producer = new HighLevelProducer(client);
+//var kafka = require('kafka-node'),
+//    HighLevelProducer = kafka.HighLevelProducer,
+//    client = new kafka.Client('172.16.4.92:2181,172.16.4.93:2181,172.16.4.94:2181'),
+//    producer = new HighLevelProducer(client);
 
-producer.on('ready', function () {
-
-});
+//producer.on('ready', function () {
+//
+//});
 
 
 var MongoClient = require('mongodb').MongoClient
     , assert = require('assert');
 var db;
-// Connection URL
-var url = 'mongodb://172.16.4.20:30000/shardb';
 
-MongoClient.connect("mongodb://172.16.4.90:30000,172.16.4.91:30000,172.16.4.92:30000/shardb?w=-1", {
+
+MongoClient.connect("mongodb://172.16.4.94:30000/testdb?w=-1", {
     'auto_reconnect': false,
     'poolSize': 10000,
     socketOptions: {keepAlive: 10000},
-    server:{poolSize:10000}
+    server: {poolSize: 10000}
 }, function (err, database) {
     if (err) throw err;
     db = database;
@@ -40,8 +39,9 @@ MongoClient.connect("mongodb://172.16.4.90:30000,172.16.4.91:30000,172.16.4.92:3
 });
 
 server.get('/hello/:phone', respond);
+
 function respond(req, res, next) {
-    //pool.acquire(function (err, db) {
+    //pool.acquire(function (err, db) {338
 
     var phone = req.params.phone;
 
@@ -54,7 +54,7 @@ function respond(req, res, next) {
 
     try {
         //sync send mongodb
-        db.collection('shardtable').insertOne({id: 9999999, phonenum: phone}, function (err, result) {
+        db.collection('table1').insertOne({id: 9999999, phonenum: phone}, function (err, result) {
             //res.end(JSON.stringify(result, null, 2));
             //console.log(JSON.stringify(result, null, 2));
             //console.log(JSON.stringify(error, null, 2));
