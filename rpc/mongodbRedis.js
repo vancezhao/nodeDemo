@@ -13,10 +13,7 @@ var MongoClient = require('mongodb').MongoClient
     , assert = require('assert');
 var db;
 
-// Connection URL
-var url = 'mongodb://172.16.4.90:30000/shardb';
-
-MongoClient.connect("mongodb://172.16.4.96:10004/shardb?w=-1", {
+MongoClient.connect("mongodb://172.16.4.94:30000/nonobankdb?w=-1", {
     'auto_reconnect': false,
     'poolSize': 10000,
     socketOptions: {keepAlive: 10000}
@@ -45,8 +42,9 @@ function respond(req, res, next) {
     //    //console.log(result);
     //});
 
-    db.collection('shardtable').insertOne({vancezhao: 1}, function (err, result) {
-        //console.log(JSON.stringify(result, null, 2));
+    db.collection('nonobanktable').insertOne({phone: 999999, ram: 0.5}, function (err, result) {
+
+        //console.log(err);
         //res.end(JSON.stringify(result, null, 2));
         res.end('');
         //pool.release(db);

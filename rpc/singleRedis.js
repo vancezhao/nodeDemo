@@ -20,7 +20,6 @@ var kafka = require('kafka-node'),
 server.get('/hello/:phone', respond);
 
 
-
 function respond(req, res, next) {
 
     var client = new kafka.Client('172.16.4.91:2181,172.16.4.92:2181,172.16.4.93:2181');

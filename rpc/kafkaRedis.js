@@ -35,7 +35,6 @@ MongoClient.connect("mongodb://172.16.4.94:30000/testdb?w=-1", {
     server.listen(1338, function () {
         console.log('%s listening at %s', server.name, server.url);
     });
-
 });
 
 server.get('/hello/:phone', respond);

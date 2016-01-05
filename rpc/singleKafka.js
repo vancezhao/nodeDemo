@@ -1,4 +1,7 @@
 /**
+ * Created by vancezhao on 16/1/5.
+ */
+/**
  * Created by vancezhao on 16/1/4.
  */
 
@@ -45,7 +48,6 @@ MongoClient.connect("mongodb://172.16.4.90:30000,172.16.4.91:30000,172.16.4.92:3
     });
 });
 
-
 server.get('/hello/:phone', respond);
 
 function respond(req, res, next) {
@@ -54,17 +56,6 @@ function respond(req, res, next) {
     var phone = req.params.phone;
     //sync send msg
     sendMsg(phone);
-
-    //sync send mongodb
-    db.collection('shardtable').insertOne({id: 9999999, phonenum: phone}, function (err, result) {
-
-        //res.end(JSON.stringify(result, null, 2));
-        //console.log(JSON.stringify(result, null, 2));
-        //console.log(JSON.stringify(error, null, 2));
-        //pool.release(db);
-        //});
-        db.close();
-    });
 
     res.send('OK');
     return next();
