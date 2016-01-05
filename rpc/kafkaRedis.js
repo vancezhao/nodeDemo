@@ -4,7 +4,6 @@
 /**
  * Created by vancezhao on 15/12/30.
  */
-require('monitor').start();
 
 var restify = require('restify');
 var server = restify.createServer();
