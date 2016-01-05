@@ -33,7 +33,9 @@ server.listen(1338, function () {
 });
 
 // Connection URL
-server.get('/hello/:phone', respond);
+server.get('/hello/:phone', function(req, res, next){
+    res.send('OK');
+});
 
 function respond(req, res, next) {
     //pool.acquire(function (err, db) {
