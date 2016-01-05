@@ -12,10 +12,11 @@ var poolModule = require('generic-pool');
 var MongoClient = require('mongodb').MongoClient
     , assert = require('assert');
 var db;
+
 // Connection URL
 var url = 'mongodb://172.16.4.90:30000/shardb';
 
-MongoClient.connect("mongodb://172.16.4.94:10004,172.16.4.95:10004,172.16.4.96:10004/shardb?w=-1", {
+MongoClient.connect("mongodb://172.16.4.96:10004/shardb?w=-1", {
     'auto_reconnect': false,
     'poolSize': 10000,
     socketOptions: {keepAlive: 10000}
@@ -24,7 +25,7 @@ MongoClient.connect("mongodb://172.16.4.94:10004,172.16.4.95:10004,172.16.4.96:1
     db = database;
 
     server.listen(1338, function () {
-        console.log('%s listening at %s', server.name, server.url);
+        console.log('Hi %s listening at %s', server.name, server.url);
     });
 });
 
@@ -47,7 +48,7 @@ function respond(req, res, next) {
     db.collection('shardtable').insertOne({vancezhao: 1}, function (err, result) {
         //console.log(JSON.stringify(result, null, 2));
         //res.end(JSON.stringify(result, null, 2));
-
+        res.end('');
         //pool.release(db);
         //});
         db.close();
