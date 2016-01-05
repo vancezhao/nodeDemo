@@ -16,8 +16,8 @@ var kafka = require('kafka-node'),
     client = new kafka.Client('172.16.4.92:2181'),
     producer = new HighLevelProducer(client);
 
-var monitor = require('monitor');
-monitor.start();
+//var monitor = require('monitor');
+//monitor.start();
 
 
 producer.on('ready', function () {
