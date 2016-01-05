@@ -15,7 +15,7 @@ var db;
 // Connection URL
 var url = 'mongodb://172.16.4.90:30000/shardb';
 
-MongoClient.connect("mongodb://172.16.4.90:30000,172.16.4.91:30000,172.16.4.92:30000/shardb?w=-1", {
+MongoClient.connect("mongodb://172.16.4.94:10004,172.16.4.95:10004,172.16.4.96:10004/shardb?w=-1", {
     'auto_reconnect': false,
     'poolSize': 10000,
     socketOptions: {keepAlive: 10000}
@@ -28,30 +28,30 @@ MongoClient.connect("mongodb://172.16.4.90:30000,172.16.4.91:30000,172.16.4.92:3
     });
 });
 
-var redis_port = 6379;
-var redis_host = '172.16.4.95';
-var Redis = require('ioredis');
-var redis = new Redis(redis_port, redis_host);
-var pipeline = redis.pipeline();
-var future = pipeline.set('vance_java4', 'vance_java4').exec();
+//var redis_port = 6379;
+//var redis_host = '172.16.4.95';
+//var Redis = require('ioredis');
+//var redis = new Redis(redis_port, redis_host);
+//var pipeline = redis.pipeline();
+//var future = pipeline.set('vance_java4', 'vance_java4').exec();
 
 
 server.get('/hello', respond);
 function respond(req, res, next) {
     //pool.acquire(function (err, db) {
-    future.then(function (result) {
-        //console.log(result);
-    });
+
+    //future.then(function (result) {
+    //    //console.log(result);
+    //});
 
     db.collection('shardtable').insertOne({vancezhao: 1}, function (err, result) {
-        console.log(JSON.stringify(result, null, 2));
-        res.end(JSON.stringify(result, null, 2));
+        //console.log(JSON.stringify(result, null, 2));
+        //res.end(JSON.stringify(result, null, 2));
 
         //pool.release(db);
         //});
         db.close();
     });
-
     //res.send('hello ');
     //return next();
 }
