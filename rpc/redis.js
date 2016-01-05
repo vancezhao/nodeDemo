@@ -32,7 +32,7 @@ var redis_host = '172.16.4.95';
 var Redis = require('ioredis');
 var redis = new Redis(redis_port, redis_host);
 var pipeline = redis.pipeline();
-var future = pipeline.set('vance_java1234', 'vance_java1234').exec();
+var future = pipeline.set('vance_java123456', 'vance_java123456').exec();
 
 server.listen(1338, function () {
     console.log('%s listening at %s', server.name, server.url);
