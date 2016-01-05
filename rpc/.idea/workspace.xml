@@ -64,8 +64,8 @@
       <file leaf-file-name="singleKafka.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/singleKafka.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+            <state relative-caret-position="391">
+              <caret line="65" column="26" selection-start-line="65" selection-start-column="26" selection-end-line="65" selection-end-column="26" />
               <folding>
                 <element signature="e#43#85#0" expanded="false" />
               </folding>
@@ -514,8 +514,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/singleKafka.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+        <state relative-caret-position="391">
+          <caret line="65" column="26" selection-start-line="65" selection-start-column="26" selection-end-line="65" selection-end-column="26" />
           <folding>
             <element signature="e#43#85#0" expanded="false" />
           </folding>

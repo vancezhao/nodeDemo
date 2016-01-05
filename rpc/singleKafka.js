@@ -63,7 +63,7 @@ function respond(req, res, next) {
 
 function sendMsg(phone) {
     var payloads = [
-        {topic: 'testTopic', messages: phone}
+        {topic: 'kaikai_18', messages: phone}
     ]
     producer.send(payloads, function (err, data) {
         //console.log(data);
