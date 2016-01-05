@@ -82,11 +82,11 @@
       <file leaf-file-name="kafkaRedis.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/kafkaRedis.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="22" column="17" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
+            <state relative-caret-position="316">
+              <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
-                <marker date="1451995050000" expanded="false" signature="0:36" placeholder="/** Created by vancezhao on 16/1/4. ...*/" />
+                <marker date="1451995959000" expanded="false" signature="0:36" placeholder="/** Created by vancezhao on 16/1/4. ...*/" />
               </folding>
             </state>
           </provider>
@@ -539,11 +539,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/kafkaRedis.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="22" column="17" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
+        <state relative-caret-position="316">
+          <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <marker date="1451995050000" expanded="false" signature="0:36" placeholder="/** Created by vancezhao on 16/1/4. ...*/" />
+            <marker date="1451995959000" expanded="false" signature="0:36" placeholder="/** Created by vancezhao on 16/1/4. ...*/" />
           </folding>
         </state>
       </provider>

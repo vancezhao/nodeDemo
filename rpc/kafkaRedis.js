@@ -12,6 +12,7 @@ var kafka = require('kafka-node'),
     HighLevelProducer = kafka.HighLevelProducer,
     client = new kafka.Client('172.16.4.92:2181,172.16.4.93:2181,172.16.4.94:2181'),
     producer = new HighLevelProducer(client);
+
 producer.on('ready', function () {
 
 });
@@ -36,18 +37,17 @@ MongoClient.connect("mongodb://172.16.4.90:30000,172.16.4.91:30000,172.16.4.92:3
     });
 });
 
-
 server.get('/hello/:phone', respond);
 function respond(req, res, next) {
     //pool.acquire(function (err, db) {
 
     var phone = req.params.phone;
     //sync send msg
-    try {
-        sendMsg(phone);
-    } catch (e) {
-        console.error("send kafka error of phonenum: " + phone);
-    }
+    //try {
+    //    sendMsg(phone);
+    //} catch (e) {
+    //    console.error("send kafka error of phonenum: " + phone);
+    //}
 
     try {
         //sync send mongodb
@@ -71,6 +71,7 @@ function sendMsg(phone) {
         {topic: 'testTopic', messages: phone}
     ]
     producer.send(payloads, function (err, data) {
-        //console.log(data);
+        console.log(data);
+        producer.close();
     });
 }
