@@ -63,7 +63,6 @@ function respond(req, res, next) {
         //console.log(JSON.stringify(error, null, 2));
         //pool.release(db);
         //});
-
         db.close();
     });
 
