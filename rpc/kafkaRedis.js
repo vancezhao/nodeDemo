@@ -10,22 +10,23 @@
  */
 var restify = require('restify');
 var server = restify.createServer();
-var kafka = require('kafka-node'),
-    HighLevelProducer = kafka.HighLevelProducer,
-    client = new kafka.Client('172.16.4.90:2181'),
-    producer = new HighLevelProducer(client);
 
-producer.on('ready', function () {
+//var kafka = require('kafka-node'),
+//    HighLevelProducer = kafka.HighLevelProducer,
+//    client = new kafka.Client('172.16.4.90:2181'),
+//    producer = new HighLevelProducer(client);
+//
+//producer.on('ready', function () {
+//
+//});
 
-});
-
-var redis_port = 6379;
-var redis_host = '172.16.4.95';
-var Redis = require('ioredis');
-var redis = new Redis(redis_port, redis_host);
-
-var pipeline = redis.pipeline();
-var future = pipeline.set("123", "123").exec();
+//var redis_port = 6379;
+//var redis_host = '172.16.4.95';
+//var Redis = require('ioredis');
+//var redis = new Redis(redis_port, redis_host);
+//
+//var pipeline = redis.pipeline();
+//var future = pipeline.set("123", "123").exec();
 
 server.listen(1338, function () {
     //console.log('%s listening at %s', server.name, server.url);
