@@ -27,7 +27,8 @@ var url = 'mongodb://172.16.4.20:30000/shardb';
 MongoClient.connect("mongodb://172.16.4.90:30000,172.16.4.91:30000,172.16.4.92:30000/shardb?w=-1", {
     'auto_reconnect': false,
     'poolSize': 10000,
-    socketOptions: {keepAlive: 10000}
+    socketOptions: {keepAlive: 10000},
+    server:{poolSize:10000}
 }, function (err, database) {
     if (err) throw err;
     db = database;
@@ -35,6 +36,7 @@ MongoClient.connect("mongodb://172.16.4.90:30000,172.16.4.91:30000,172.16.4.92:3
     server.listen(1338, function () {
         console.log('%s listening at %s', server.name, server.url);
     });
+
 });
 
 server.get('/hello/:phone', respond);
@@ -42,6 +44,7 @@ function respond(req, res, next) {
     //pool.acquire(function (err, db) {
 
     var phone = req.params.phone;
+
     //sync send msg
     //try {
     //    sendMsg(phone);
