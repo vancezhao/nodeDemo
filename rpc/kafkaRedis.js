@@ -12,7 +12,7 @@ var restify = require('restify');
 var server = restify.createServer();
 var kafka = require('kafka-node'),
     HighLevelProducer = kafka.HighLevelProducer,
-    client = new kafka.Client('172.16.4.92:2181'),
+    client = new kafka.Client('172.16.4.90:2181'),
     producer = new HighLevelProducer(client);
 
 producer.on('ready', function () {
@@ -46,7 +46,7 @@ function respond(req, res, next) {
     //});
 
     //sync send msg
-    sendMsg(phone);
+    //sendMsg(phone);
 
     res.send('OK');
     //return next();
