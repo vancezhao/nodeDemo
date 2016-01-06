@@ -9,7 +9,7 @@ producer.on('ready', function () {
 
 process.on('message', function(m) {
     var payloads = [
-        {topic: 'test1', messages: m.phonenum}
+        {topic: 'kaikai_18', messages: m.phonenum}
     ]
     producer.send(payloads, function (err, data) {
         //console.log(data);

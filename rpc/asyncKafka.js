@@ -18,25 +18,24 @@ function respond(req, res, next) {
 
     var phone = req.params.phone;
 
-    try {
-        //console.info(n.connected);
-        if (!cp_kafka.connected) {
-            cp_kafka = cp.fork('./kafka.js');
-        }
-        cp_kafka.send({phonenum: phone});
-    } catch (e) {
-        console.error('operator kafka error for phonenum: ' + phone);
-    }
-
     //try {
-    //    if (!cp_mongodb.connected) {
-    //        cp_mongodb = cp.fork('./mongdb.js');
+    //    //console.info(n.connected);
+    //    if (!cp_kafka.connected) {
+    //        cp_kafka = cp.fork('./kafka.js');
     //    }
-    //    cp_mongodb.send({phonenum: phone});
+    //    cp_kafka.send({phonenum: phone});
     //} catch (e) {
-    //    console.error('operator mongodb error for phone: ' + phone);
+    //    console.error('operator kafka error for phonenum: ' + phone);
     //}
-    //n.disconnect();
+
+    try {
+        if (!cp_mongodb.connected) {
+            cp_mongodb = cp.fork('./mongdb.js');
+        }
+        cp_mongodb.send({phonenum: phone});
+    } catch (e) {
+        console.error('operator mongodb error for phone: ' + phone);
+    }
 
     res.send('OK');
     return next();
