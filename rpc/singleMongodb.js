@@ -56,7 +56,7 @@ function respond(req, res, next) {
     console.log("userType: " + userTypeNum + " userId: " + userIdNum);
 
     db.collection('usertable').insertOne({userType: userTypeNum, userId: userIdNum}, function (err, result) {
-        console.log(JSON.stringify(result, null, 2));
+        //console.log(JSON.stringify(result, null, 2));
         //res.end(JSON.stringify(result, null, 2));
         //pool.release(db);
         //});
