@@ -38,6 +38,7 @@ function respond(req, res, next) {
     //}
     //n.disconnect();
     res.send('OK');
+    return next();
 }
 //n.kill('SIGHUP');
 
