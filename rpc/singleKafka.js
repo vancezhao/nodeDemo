@@ -48,7 +48,11 @@ var url = 'mongodb://172.16.4.90:30000/shardb';
 //    });
 //});
 //
-//server.get('/hello/:phone', respond);
+
+server.listen(1338, function () {
+    //console.log('%s listening at %s', server.name, server.url);
+});
+server.get('/hello/:phone', respond);
 
 function respond(req, res, next) {
     //pool.acquire(function (err, db) {
