@@ -35,20 +35,20 @@ var db;
 // Connection URL
 var url = 'mongodb://172.16.4.90:30000/shardb';
 
-MongoClient.connect("mongodb://172.16.4.90:30000,172.16.4.91:30000,172.16.4.92:30000/shardb?w=-1", {
-    'auto_reconnect': false,
-    'poolSize': 10000,
-    socketOptions: {keepAlive: 10000}
-}, function (err, database) {
-    if (err) throw err;
-    db = database;
-
-    server.listen(1338, function () {
-        //console.log('%s listening at %s', server.name, server.url);
-    });
-});
-
-server.get('/hello/:phone', respond);
+//MongoClient.connect("mongodb://172.16.4.90:30000,172.16.4.91:30000,172.16.4.92:30000/shardb?w=-1", {
+//    'auto_reconnect': false,
+//    'poolSize': 10000,
+//    socketOptions: {keepAlive: 10000}
+//}, function (err, database) {
+//    if (err) throw err;
+//    db = database;
+//
+//    server.listen(1338, function () {
+//        //console.log('%s listening at %s', server.name, server.url);
+//    });
+//});
+//
+//server.get('/hello/:phone', respond);
 
 function respond(req, res, next) {
     //pool.acquire(function (err, db) {
