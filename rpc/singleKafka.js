@@ -27,7 +27,6 @@ producer.on('ready', function () {
 
 });
 
-
 var MongoClient = require('mongodb').MongoClient
     , assert = require('assert');
 var db;

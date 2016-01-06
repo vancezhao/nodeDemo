@@ -10,29 +10,27 @@ var MongoClient = require('mongodb').MongoClient
     , assert = require('assert');
 var db;
 
-// Connection URL
-//var url = 'mongodb://172.16.4.90:30000/shardb';
-//
-//MongoClient.connect("mongodb://172.16.4.90:30000,172.16.4.91:30000,172.16.4.92:30000/shardb?w=-1", {
-//    'auto_reconnect': false,
-//    'poolSize': 10000,
-//    socketOptions: {keepAlive: 3000}
-//}, function (err, database) {
-//    if (err) throw err;
-//    db = database;
-//
-//    server.listen(1337, function () {
-//        console.log('%s listening at %s', server.name, server.url);
-//    });
-//});
-
 var redis_port = 6379;
 var redis_host = '172.16.4.95';
 
+//var Redis = require('ioredis');
+//var redis = new Redis(redis_port, redis_host);
+
 var Redis = require('ioredis');
-var redis = new Redis(redis_port, redis_host);
-var pipeline = redis.pipeline();
-var future = pipeline.set('vance_java123456', 'vance_java123456').exec();
+
+var cluster = new Redis.Cluster([{
+    port: 6380,
+    host: '172.16.4.93'
+}, {
+    port: 6380,
+    host: '172.16.4.97'
+}, {
+    port: 6380,
+    host: '172.16.4.92'
+}]);
+
+var pipeline = cluster.pipeline();
+var future = pipeline.set('vance_java1234561231231212312321', 'vance_java1234561231231212312321').exec();
 
 server.listen(1338, function () {
     console.log('%s listening at %s', server.name, server.url);
