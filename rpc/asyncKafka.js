@@ -37,6 +37,7 @@ function respond(req, res, next) {
     //    console.error('operator mongodb error for phone: ' + phone);
     //}
     //n.disconnect();
+
     res.send('OK');
     return next();
 }
