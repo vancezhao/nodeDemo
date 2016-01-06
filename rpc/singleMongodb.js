@@ -1,4 +1,3 @@
-
 /**
  * Created by vancezhao on 16/1/5.
  */
@@ -20,7 +19,7 @@ var db;
 // Connection URL
 var url = 'mongodb://172.16.4.90:30000/shardb';
 
-MongoClient.connect("mongodb://172.16.4.96:10004/shardb?w=-1", {
+MongoClient.connect("mongodb://172.16.4.94:30000/userdb?w=-1", {
     'auto_reconnect': false,
     'poolSize': 10000,
     socketOptions: {keepAlive: 10000}
@@ -40,6 +39,9 @@ MongoClient.connect("mongodb://172.16.4.96:10004/shardb?w=-1", {
 //var pipeline = redis.pipeline();
 //var future = pipeline.set('vance_java4', 'vance_java4').exec();
 
+function randomInt(low, high) {
+    return Math.floor(Math.random() * (high - low) + low);
+}
 
 server.get('/hello', respond);
 function respond(req, res, next) {
@@ -49,10 +51,13 @@ function respond(req, res, next) {
     //    //console.log(result);
     //});
 
-    db.collection('shardtable').insertOne({vancezhao: 1}, function (err, result) {
-        //console.log(JSON.stringify(result, null, 2));
-        //res.end(JSON.stringify(result, null, 2));
+    var userTypeNum = randomInt(1, 20);
+    var userIdNum = randomInt(1, 100000);
+    console.log("userType: " + userTypeNum + " userId: " + userIdNum);
 
+    db.collection('usertable').insertOne({userType: userTypeNum, userId: userIdNum}, function (err, result) {
+        console.log(JSON.stringify(result, null, 2));
+        //res.end(JSON.stringify(result, null, 2));
         //pool.release(db);
         //});
         db.close();

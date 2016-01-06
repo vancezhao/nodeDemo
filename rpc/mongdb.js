@@ -12,14 +12,27 @@ MongoClient.connect("mongodb://172.16.4.94:30000/nonobankdb?w=-1", {
 });
 
 
-process.on('message', function(m) {
+function randomInt(low, high) {
+    return Math.floor(Math.random() * (high - low) + low);
+}
 
-    db.collection('nonobanktable').insertOne({id:9999, phonenum: m.phonenum}, function (err, result) {
+process.on('message', function (m) {
+    var userTypeNum = randomInt(1, 20);
+    var userIdNum = randomInt(1, 10000);
+
+    db.collection('nonobanktable').insertOne({
+        userType: userTypeNum,
+        userId: userIdNum
+    }, function (err, result) {
+
         //res.end(JSON.stringify(result, null, 2));
         //console.log(JSON.stringify(result, null, 2));
         //console.log(JSON.stringify(err, null, 2));
         //pool.release(db);
         //});
         //db.close();
+
     });
+
 });
+
