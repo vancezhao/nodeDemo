@@ -53,5 +53,6 @@ function respond(req, res, next) {
     //
     //});
     res.send('hello ');
+    return next();
 }
 
