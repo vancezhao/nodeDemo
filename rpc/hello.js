@@ -2,7 +2,7 @@ var http = require('http');
 
 var kafka = require('kafka-node'),
     HighLevelProducer = kafka.HighLevelProducer,
-    client = new kafka.Client('172.16.4.92:2181,172.16.4.93:2181,172.16.4.94:2181'),
+    client = new kafka.Client('172.16.4.92:2181'),
     producer = new HighLevelProducer(client);
 
 var payloads = [
