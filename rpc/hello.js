@@ -14,7 +14,7 @@ var zkOptions = {requireAcks: 0, ackTimeoutMs: 100};
 
 var noAckBatchOptions = {noAckBatchSize: 500, noAckBatchAge: 300};
 var client = new kafka.Client(urlString, ''),
-    producer = new HighLevelProducer(client);
+    producer = new HighLevelProducer(client,zkOptions);
 
 var payloads = [
     {topic: 'kaikai_18', messages: 'This is the First Message I am sending', attributes: 2},
